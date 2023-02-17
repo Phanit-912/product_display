@@ -96,9 +96,9 @@
           @can('role_edit')
             <li><a class="dropdown-item" href="{{ route('roles.edit',$role->id) }}">Update</a></li>
           @endcan
-          @can('role_delete')
+          {{-- @can('role_delete')
           <li><a class="dropdown-item text-danger" href="#" data-bs-toggle="modal" data-bs-target="#DeleteModal">Delete</a></li>
-          @endcan
+          @endcan --}}
 
         </ul>
       </div>

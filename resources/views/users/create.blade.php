@@ -46,7 +46,7 @@
     <div class="d-flex justify-content-between">
 
       <div class="w-100 input-field">
-        <input id="input_text" type="text" id="name" name="name" value="{{ old('name') }}">
+        <input id="input_text" type="text" id="name" name="name" value="{{ old('name') }}" autofocus>
         <label for="input_text">Name</label>
       </div>
 
@@ -69,7 +69,7 @@
       <div class="mx-2"></div>
 
       <div class="w-100 input-field">
-        {!! Form::select('roles[]', $roles,['class'], array('class' => 'browser-default')) !!}
+        {!! Form::select('roles[]', $roles,['class'], array('class' => '')) !!}
       </div>
       
     </div>
@@ -99,16 +99,10 @@
 
 
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
+  document.addEventListener('DOMContentLoaded', function() {
     var elems = document.querySelectorAll('select');
-    var instances = M.FormSelect.init(elems, options);
+    M.FormSelect.init(elems);
   });
-
-  // Or with jQuery
-
-  $(document).ready(function(){
-    $('select').formSelect();
-  });
-      
 </script>
+
 @endsection

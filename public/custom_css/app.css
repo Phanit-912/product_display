@@ -59,3 +59,43 @@
   object-fit: cover;
 }
 /* End Product */
+
+
+
+/* Decore For Home page */
+.home_background {
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-image: url('https://img.freepik.com/free-vector/wavy-background-with-copy-space_52683-65230.jpg?w=1380&t=st=1676619090~exp=1676619690~hmac=9ef7a9cd353f498176eb6b09c7aca30c4102ab84466cc5a96defdc406c375585');
+}
+.product_card {
+  width: 15em;
+  height: 21.3em;
+  overflow: hidden;  
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  transition: 0.2s;
+}
+.product_card:hover {
+  transform: scale(1.05);
+}
+.product_image {
+  width: 15em;
+  height: 17em;
+  object-fit: cover;
+}
+.product_title {
+  width: 15em;
+  height: 4em;
+  text-align: center;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.product_title > p {
+  font-size: 16px;
+}
+.text_overflow {
+  text-overflow: ellipsis;
+}
+/* End Decore For Home page */

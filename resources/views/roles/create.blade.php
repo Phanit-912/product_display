@@ -54,7 +54,7 @@
 
       <div class="w-100 d-flex justify-content-between">
         <div class="w-25 input-field">
-          <input id="input_text" type="text" id="role_name" name="name" value="{{ old('name') }}">
+          <input id="input_text" type="text" id="role_name" name="name" value="{{ old('name') }}" autofocus>
           <label for="input_text">Role Name</label>
         </div>
         <div class="mx-2"></div>

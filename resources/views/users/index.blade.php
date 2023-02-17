@@ -37,12 +37,12 @@
   <div class="w-100 d-flex justify-content-between border-bottom py-2">
     <div class="w-100 d-flex justify-content-between">
       <p class="text-center text-truncate m-0" style="width: 5%;">Id</p>
-      <p class="text-truncate m-0" style="width: 25%;">Name</p>
-      <p class="text-truncate m-0" style="width: 30%;">Email</p>
-      <p class="text-truncate m-0" style="width: 40%;">Note</p>
+      <p class="text-truncate m-0 tooltipped" style="width: 25%;" data-tooltip="Name of User">Name</p>
+      <p class="text-truncate m-0 tooltipped" style="width: 30%;" data-tooltip="Email of User">Email</p>
+      <p class="text-truncate m-0 tooltipped" style="width: 40%;" data-tooltip="Optional note">Note</p>
     </div>
     <div>
-      <p class="text-truncate m-0" style="width: 2em;"></p>
+      <p class="text-truncate m-0 tooltipped" style="width: 2em;" data-tooltip="Action">&nbsp;</p>
     </div>
   </div>
 </a>
@@ -102,9 +102,9 @@
           @can('user_edit')
             <li><a class="dropdown-item" href="{{ route('users.edit',$user->id) }}">Update</a></li>
           @endcan
-          @can('user_delete')
+          {{-- @can('user_delete')
           <li><a class="dropdown-item text-danger" href="#" data-bs-toggle="modal" data-bs-target="#DeleteModal">Delete</a></li>
-          @endcan
+          @endcan --}}
 
         </ul>
       </div>
@@ -112,4 +112,10 @@
   </div>
 @endforeach
 
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+    var elems = document.querySelectorAll('.tooltipped');
+    M.Tooltip.init(elems);
+  });
+</script>
 @endsection
