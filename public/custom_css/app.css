@@ -1,0 +1,61 @@
+* {
+  margin: 0em;
+  padding: 0em;
+  font-family: 'Baloo 2';
+}
+
+.layout_width {
+  width: 100vw;
+}
+
+.layout_height {
+  height: 100vh;
+}
+
+.login_form {
+  width: 30em;
+  height: fit-content;
+}
+
+.nav_box {
+  width: 5em;
+}
+.nav_font {
+  font-size: 0.9em;;
+}
+
+.menu_list_width {
+  width: 14em;
+}
+
+/* Table Hover */
+.table_hover:hover {
+  background: #eeeeee;
+}
+
+/* Quick sale decor */
+.category_box {
+  min-width: 6em;
+}
+
+.product_box {
+  width: 15rem;
+  height: 15rem;
+  transition: transform .2s;
+}
+.product_box:hover {
+  transform: scale(1.05);
+}
+
+.receipt_width {
+  width: 25em;
+}
+/* end Quick sale decor */
+
+/* Product Create */
+.product_create_img {
+  width: 10em;
+  height: 10em;
+  object-fit: cover;
+}
+/* End Product */
