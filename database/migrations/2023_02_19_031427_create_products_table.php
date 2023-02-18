@@ -24,8 +24,8 @@ return new class extends Migration
           $table->string('product_description');
           $table->string('product_image')->nullable()->default(NULL);
 
-          $table->foreignId('category_id')->nullable()->default(1)->constrained('categories');
-          $table->foreignId('brand_id')->nullable()->default(1)->constrained('brands');
+          $table->foreignId('product_category_id')->nullable()->default(1)->constrained('categories');
+          $table->foreignId('product_brand_id')->nullable()->default(1)->constrained('brands');
 
           $table->foreignId('created_by_id')->constrained('users');
           $table->string('created_by_name');
