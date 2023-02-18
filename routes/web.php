@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\HomeController;
 use App\Models\Brand;
+use App\Models\Category;
 
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
@@ -25,7 +26,8 @@ use App\Http\Controllers\BrandController;
 
 Route::get('/', function () {
   return view('homes.index', [
-    'brands' => Brand::orderByDesc('brand_name')->get(),
+    'brands' => Brand::orderByDesc('brand_code')->get(),
+    'categories' => Category::orderByDesc('category_code')->get(),
   ]);
 });
 

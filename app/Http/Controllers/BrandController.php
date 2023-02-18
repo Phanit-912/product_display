@@ -102,8 +102,13 @@ class BrandController extends Controller
      * @param  \App\Models\Brand  $brand
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Brand $brand)
+    public function destroy($brand)
     {
-        //
+      //DELETE
+      $delete = Brand::find($brand);
+
+      $delete->delete();
+
+      return redirect()->route('brands.index');
     }
 }

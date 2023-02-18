@@ -13,7 +13,7 @@ class UpdateCategoryRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,23 @@ class UpdateCategoryRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+          'category_name' => 'required|string',
+          'category_code' => '',
+          'category_note' => '',
+
+          'updated_by_id' => 'required|int',
+          'updated_by_name' => 'required|string',
         ];
+    }
+
+    protected function prepareForValidation() {
+      $this->merge([
+        'category_name' => strip_tags($this->category_name),
+        'category_code' => strip_tags($this->category_code),
+        'category_note' => strip_tags($this->category_note),
+
+        'updated_by_id' => strip_tags($this->updated_by_id),
+        'updated_by_name' => strip_tags($this->updated_by_name),
+      ]);
     }
 }

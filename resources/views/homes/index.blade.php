@@ -85,7 +85,7 @@
       <p class="m-0 px-4 py-1 fs-3 sidenav-trigger" data-target="slide-out">
         <i class="bi bi-text-indent-right"></i>
       </p>
-      <p class="m-0 p-2 fs-4 fw-semibold text-uppercase text-danger">ONE DISPLAY <span class="fs-6" id="event"></span></p>
+      <p class="m-0 p-2 fs-4 fw-semibold text-uppercase text-danger" id="event">ONE DISPLAY</p>
       <p class="m-0 px-4 py-1 fs-3 modal-trigger" data-target="modalProduct_Cart">
         <i class="bi bi-basket3"></i>
       </p>
@@ -108,8 +108,16 @@
       <div class="py-4"></div>
       
       <div class="p-3">
-        <h5>Profile</h5>
+        <h5 class="text-danger">ONE DISPLAY</h5>
 
+        <p class="py-2 border-bottom text-success">Category</p>
+        @foreach ($categories as $category)
+            <p>{{ $category->category_name }}</p>
+        @endforeach
+
+        <div class="py-4"></div>
+
+        <p class="py-2 border-bottom text-success">Brand</p>
         @foreach ($brands as $brand)
             <p>{{ $brand->brand_name }}</p>
         @endforeach
@@ -158,7 +166,7 @@
 
       <script>
 
-        for (let index = 0; index < 49; index++) {
+        for (let index = 0; index < 48; index++) {
           document.write('<div class="product_card bg-white m-3 rounded-4  shadow modal-trigger" data-target="modalProduct_Grid">');
 
             document.write('<div class="rounded-4 product_image">');
@@ -171,6 +179,7 @@
             document.write('</div>');
           document.write('</div>');
         }
+        
 
         // For Modal Product
         document.addEventListener('DOMContentLoaded', function() {

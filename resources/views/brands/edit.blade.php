@@ -4,11 +4,6 @@
 @section('content')
 <div class="w-100">
   {{-- Header --}}
-  @if ($message = Session::get('success'))
-  <div class="alert alert-success">
-    <p>{{ $message }}</p>
-  </div>
-  @endif
 
   <div class="w-100 d-flex justify-content-between  align-items-center border-bottom">
     <div class="ms-3">
@@ -18,7 +13,7 @@
     </div>
 
     <div class="w-100 text-center">
-      <h4 class="text-truncate mx-0 my-3">New Brand</h4>
+      <h4 class="text-truncate mx-0 my-3">Update Brand</h4>
     </div>
 
     <div class="text-end me-3">
@@ -97,7 +92,7 @@
           <div class="mx-3"></div>
 
           <a>
-            <button class="btn blue darken-1 waves-effect waves-light" type="submit" name="action">Submit</button>
+            <button class="btn blue darken-1 waves-effect waves-light" type="submit" name="action">Update</button>
           </a>
         </div>
         

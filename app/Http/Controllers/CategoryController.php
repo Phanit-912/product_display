@@ -15,7 +15,12 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        //
+      //GET
+      $categories = Category::orderByDesc('id')->get();
+
+      return view('categories.index', [
+        'categories' => $categories,
+      ]);
     }
 
     /**
@@ -25,7 +30,8 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        //
+        //GET
+        return view('categories.create');
     }
 
     /**
@@ -36,7 +42,12 @@ class CategoryController extends Controller
      */
     public function store(StoreCategoryRequest $request)
     {
-        //
+      //POST
+      $data = $request->validated();
+
+      Category::create($data);
+
+      return redirect()->route('categories.index');
     }
 
     /**
@@ -47,7 +58,10 @@ class CategoryController extends Controller
      */
     public function show(Category $category)
     {
-        //
+      //GET
+      return view('categories.show', [
+        'category' => $category,
+      ]);
     }
 
     /**
@@ -58,7 +72,10 @@ class CategoryController extends Controller
      */
     public function edit(Category $category)
     {
-        //
+        //GET
+        return view('categories.edit', [
+          'category' => $category,
+        ]);
     }
 
     /**
@@ -70,7 +87,12 @@ class CategoryController extends Controller
      */
     public function update(UpdateCategoryRequest $request, Category $category)
     {
-        //
+        //PUT
+        $data = $request->validated();
+
+        $category->update($data);
+
+        return redirect()->route('categories.index');
     }
 
     /**
@@ -79,8 +101,13 @@ class CategoryController extends Controller
      * @param  \App\Models\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Category $category)
+    public function destroy($category)
     {
-        //
+      // DELETE
+      $delete = Category::find($category);
+
+      $delete->delete();
+
+      return redirect()->route('categories.index');
     }
 }
