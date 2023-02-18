@@ -78,14 +78,14 @@
 </head>
 <body>
 
-  <div class="layout_width layout_height overflow-auto home_background">
+  <div class="layout_width layout_height overflow-auto home_background" >
 
     {{-- Navigation Bar View --}}
     <div class="w-100 d-flex justify-content-between align-items-center bg-white sticky-top">
       <p class="m-0 px-4 py-1 fs-3 sidenav-trigger" data-target="slide-out">
         <i class="bi bi-text-indent-right"></i>
       </p>
-      <p class="m-0 p-2 fs-4 fw-semibold text-uppercase text-danger">ONE DISPLAY</p>
+      <p class="m-0 p-2 fs-4 fw-semibold text-uppercase text-danger">ONE DISPLAY <span class="fs-6" id="event"></span></p>
       <p class="m-0 px-4 py-1 fs-3 modal-trigger" data-target="modalProduct_Cart">
         <i class="bi bi-basket3"></i>
       </p>
@@ -124,7 +124,7 @@
     
 
     {{-- Product View --}}
-    <div class="w-100 d-flex justify-content-center flex-wrap align-content-start p-3">
+    <div class="w-100 d-flex justify-content-center flex-wrap align-content-start p-3" id="viewEvent">
 
       {{-- Modal Product Detail --}}
         <div id="modalProduct_Grid" class="modal modalProduct">
@@ -142,13 +142,15 @@
           <img src="https://img.freepik.com/premium-vector/cute-robot-cyborg-modern-robotic-character-artificial-intelligence-technology-concept-vector-illustration_48369-42931.jpg?w=826" class="w-100 product_image rounded-4" alt="">
         </div>
         <div class="product_title">
+          <p class="m-0 p-0 product_price"><span class="rounded-top px-1 pb-2 bg-white">$ 9999.00</span></p>
           <p class="m-0 p-2 text-secondary">Product Name Product Name Product Name Product Name Product NameProduct NameProduct Name</p>
         </div>
       </div>
 
+
       <script>
 
-        for (let index = 0; index < 69; index++) {
+        for (let index = 0; index < 49; index++) {
           document.write('<div class="product_card bg-white m-3 rounded-4  shadow modal-trigger" data-target="modalProduct_Grid">');
 
             document.write('<div class="rounded-4 product_image">');
@@ -156,6 +158,7 @@
             document.write('</div>');
             
             document.write('<div class="product_title">');
+            document.write('<p class="m-0 p-0 product_price"><span class="rounded-top px-1 pb-2 bg-white">$ 9999.00</span></p>');
             document.write('<p class="m-0 p-2 text-secondary">Hikvision SSD 128G Warranty 2 Years '+ '- N.' + index +'</p>');
             document.write('</div>');
           document.write('</div>');
@@ -166,6 +169,18 @@
           var elems = document.querySelectorAll('.modalProduct');
           M.Modal.init(elems);
         });
+
+        // Get Event on display
+        document.addEventListener('mousedown', viewEvent);
+        document.addEventListener('mousemove', viewEvent);
+        document.addEventListener('touchstart', viewEvent);
+        document.addEventListener('scroll', viewEvent);
+        document.addEventListener('keydown', viewEvent);
+
+        function viewEvent(evt){
+          document.getElementById('viewEvent').innerHTML;
+          document.getElementById('event').innerHTML = evt.type;
+        }
       </script>
 
     </div>

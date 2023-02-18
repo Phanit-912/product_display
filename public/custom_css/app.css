@@ -87,7 +87,8 @@
 }
 .product_title {
   width: 15em;
-  height: 4em;
+  height: 5.5em;
+  margin-top: -1.6em;
   text-align: center;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -97,5 +98,47 @@
 }
 .text_overflow {
   text-overflow: ellipsis;
+}
+.product_price {
+  color: #545454;
+  /* text-shadow: 1px 1px 2px #000000; */
+}
+
+@media screen and (max-width: 767px) {
+  .product_card {
+    width: 9em;
+    height: 15em;
+    overflow: hidden;  
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    transition: 0.2s;
+  }
+  .product_card:hover {
+    transform: scale(1.08);
+  }
+  .product_image {
+    width: 9em;
+    height: 12em;
+    object-fit: cover;
+  }
+  .product_title {
+    width: 9em;
+    height: 4em;
+    margin-top: -0.9em;
+    text-align: center;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .product_title > p {
+    font-size: 10px;
+  }
+  .text_overflow {
+    text-overflow: ellipsis;
+  }
+  .product_price {
+    color: #545454;
+    /* text-shadow: 1px 1px 2px #000000; */
+  }
 }
 /* End Decore For Home page */
