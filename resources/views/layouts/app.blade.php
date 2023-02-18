@@ -77,6 +77,24 @@
       {{-- Nav View --}}
       <div class="nav_box bg-light layout_height shadow overflow-auto" style="z-index: 9999999999">
 
+        @can('product_view')
+        <a href="{{ route('products.index') }}">
+          <button class="transparent border-0 rounded-0 w-100 pt-2 pb-2 bg-transparent waves-effect waves-green">              
+              <h2 class="m-0 green-text text-darken-2"><i class="bi fs-1 bi-shop-window"></i></h2>
+              <p class="m-0 green-text text-darken-2 nav_font">Product</p>
+          </button>
+        </a>
+        @endcan
+
+        @can('product_view')
+        <a href="{{ route('products.index') }}">
+          <button class="transparent border-0 rounded-0 w-100 pt-2 pb-2 bg-transparent waves-effect waves-green">              
+              <h2 class="m-0 green-text text-darken-2"><i class="bi fs-1 bi-x-diamond"></i></h2>
+              <p class="m-0 green-text text-darken-2 nav_font">Category</p>
+          </button>
+        </a>
+        @endcan
+
         @can('user_view')
         <a href="{{ route('users.index') }}">
           <button class="transparent border-0 rounded-0 w-100 pt-2 pb-2 bg-transparent waves-effect waves-green">              
@@ -91,15 +109,6 @@
           <button class="transparent border-0 rounded-0 w-100 pt-2 pb-2 bg-transparent waves-effect waves-green">              
               <h2 class="m-0 green-text text-darken-2"><i class="bi bi-diagram-2"></i></h2>
               <p class="m-0 green-text text-darken-2 nav_font">Roles</p>
-          </button>
-        </a>
-        @endcan
-
-        @can('product_view')
-        <a href="{{ route('products.index') }}">
-          <button class="transparent border-0 rounded-0 w-100 pt-2 pb-2 bg-transparent waves-effect waves-green">              
-              <h2 class="m-0 green-text text-darken-2"><i class="bi fs-1 bi-shop-window"></i></h2>
-              <p class="m-0 green-text text-darken-2 nav_font">Product</p>
           </button>
         </a>
         @endcan
