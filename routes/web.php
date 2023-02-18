@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\HomeController;
+use App\Models\Brand;
 
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
@@ -23,8 +24,11 @@ use App\Http\Controllers\BrandController;
 */
 
 Route::get('/', function () {
-    return view('home');
+  return view('homes.index', [
+    'brands' => Brand::orderByDesc('brand_name')->get(),
+  ]);
 });
+
 Route::get('/admin', function () {
   return view('auth.login');
 });

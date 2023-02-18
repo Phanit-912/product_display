@@ -81,7 +81,7 @@
         <a href="{{ route('products.index') }}">
           <button class="transparent border-0 rounded-0 w-100 pt-2 pb-2 bg-transparent waves-effect waves-green">              
               <h2 class="m-0 green-text text-darken-2"><i class="bi fs-1 bi-shop-window"></i></h2>
-              <p class="m-0 green-text text-darken-2 nav_font">Product</p>
+              <p class="m-0 green-text text-darken-2 nav_font py-1">Product</p>
           </button>
         </a>
         @endcan
@@ -90,7 +90,25 @@
         <a href="{{ route('products.index') }}">
           <button class="transparent border-0 rounded-0 w-100 pt-2 pb-2 bg-transparent waves-effect waves-green">              
               <h2 class="m-0 green-text text-darken-2"><i class="bi fs-1 bi-x-diamond"></i></h2>
-              <p class="m-0 green-text text-darken-2 nav_font">Category</p>
+              <p class="m-0 green-text text-darken-2 nav_font py-1">Category</p>
+          </button>
+        </a>
+        @endcan
+
+        @can('product_view')
+        <a href="{{ route('brands.index') }}">
+          <button class="transparent border-0 rounded-0 w-100 pt-2 pb-2 bg-transparent waves-effect waves-green">              
+              <h2 class="m-0 green-text text-darken-2"><i class="bi fs-1 bi-github"></i></h2>
+              <p class="m-0 green-text text-darken-2 nav_font py-1">Brand</p>
+          </button>
+        </a>
+        @endcan
+
+        @can('product_view')
+        <a href="{{ route('products.index') }}">
+          <button class="transparent border-0 rounded-0 w-100 pt-2 pb-2 bg-transparent waves-effect waves-green">              
+              <h2 class="m-0 green-text text-darken-2"><i class="bi fs-1 bi-x-diamond"></i></h2>
+              <p class="m-0 green-text text-darken-2 nav_font py-1">Quote</p>
           </button>
         </a>
         @endcan
@@ -98,7 +116,7 @@
         @can('user_view')
         <a href="{{ route('users.index') }}">
           <button class="transparent border-0 rounded-0 w-100 pt-2 pb-2 bg-transparent waves-effect waves-green">              
-              <h2 class="m-0 green-text text-darken-2"><i class="bi bi-people"></i></h2>
+              <h2 class="m-0 green-text text-darken-2"><i class="bi fs-1 bi-people"></i></h2>
               <p class="m-0 green-text text-darken-2 nav_font">Users</p>
           </button>
         </a>
@@ -116,7 +134,7 @@
         @can('user_view')
         <a>
           <button class="transparent border-0 rounded-0 w-100 pt-2 pb-2 waves-effect waves-green">
-              <h2 class="m-0 green-text text-darken-2"><i class="bi bi-person"></i></h2>
+              <h2 class="m-0 green-text text-darken-2"><i class="bi fs-1 bi-person"></i></h2>
               <p class="m-0 green-text text-darken-2 nav_font text-truncate">User</p>
           </button>
         </a>
@@ -126,7 +144,7 @@
           <form action="{{ route('logout') }}" method="POST">
             @csrf
             <button class="transparent border-0 rounded-0 w-100 pt-2 pb-2 waves-effect waves-green">
-                <h3 class="m-0 green-text text-darken-2"><i class="bi bi-box-arrow-left"></i></h3>
+                <h3 class="m-0 green-text text-darken-2"><i class="bi fs-1 bi-box-arrow-left"></i></h3>
                 <p class="m-0 green-text text-darken-2 nav_font">{{ __('Logout') }}</p>
             </button>
           </form>

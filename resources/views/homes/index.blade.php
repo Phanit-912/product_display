@@ -106,7 +106,15 @@
     {{-- Side Nav --}}
     <div id="slide-out" class="sidenav">
       <div class="py-4"></div>
-      <h5>Profile</h5>
+      
+      <div class="p-3">
+        <h5>Profile</h5>
+
+        @foreach ($brands as $brand)
+            <p>{{ $brand->brand_name }}</p>
+        @endforeach
+      </div>
+
     </div>
     <script>
         document.addEventListener('DOMContentLoaded', function() {

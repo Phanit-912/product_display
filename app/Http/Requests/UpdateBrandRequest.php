@@ -13,7 +13,7 @@ class UpdateBrandRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,23 @@ class UpdateBrandRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+          'brand_name' => 'required|string',
+          'brand_code' => '',
+          'brand_note' => '',
+
+          'updated_by_id' => 'required|int',
+          'updated_by_name' => 'required|string',
         ];
+    }
+
+    protected function prepareForValidation() {
+      $this->merge([
+        'brand_name' => strip_tags($this->brand_name),
+        'brand_code' => strip_tags($this->brand_code),
+        'brand_note' => strip_tags($this->brand_note),
+
+        'updated_by_id' => strip_tags($this->updated_by_id),
+        'updated_by_name' => strip_tags($this->updated_by_name),
+      ]);
     }
 }

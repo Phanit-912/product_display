@@ -15,7 +15,12 @@ class BrandController extends Controller
      */
     public function index()
     {
-        //
+        //GET
+        $brands = Brand::orderByDesc('id')->get();
+
+        return view('brands.index', [
+          'brands' => $brands,
+        ]);
     }
 
     /**
@@ -25,7 +30,8 @@ class BrandController extends Controller
      */
     public function create()
     {
-        //
+        //GET
+        return view('brands.create');
     }
 
     /**
@@ -36,7 +42,12 @@ class BrandController extends Controller
      */
     public function store(StoreBrandRequest $request)
     {
-        //
+        //POST
+        $data = $request->validated();
+
+        Brand::create($data);
+        
+        return redirect()->route('brands.index');
     }
 
     /**
@@ -47,7 +58,10 @@ class BrandController extends Controller
      */
     public function show(Brand $brand)
     {
-        //
+        //GET
+        return view('brands.show', [
+          'brand' => $brand
+        ]);
     }
 
     /**
@@ -58,7 +72,11 @@ class BrandController extends Controller
      */
     public function edit(Brand $brand)
     {
-        //
+        //GET
+
+        return view('brands.edit', [
+          'brand' => $brand,
+        ]);
     }
 
     /**
@@ -70,7 +88,12 @@ class BrandController extends Controller
      */
     public function update(UpdateBrandRequest $request, Brand $brand)
     {
-        //
+        //PUT
+        $data = $request->validated();
+
+        $brand->update($data);
+
+        return redirect()->route('brands.index');
     }
 
     /**
