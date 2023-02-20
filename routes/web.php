@@ -25,21 +25,13 @@ use App\Http\Controllers\BrandController;
 |
 */
 
-Route::get('/', function () {
-  return view('homes.index', [
-    'brands' => Brand::orderBy('brand_code', 'asc')->get(),
-    'categories' => Category::orderBy('category_code', 'asc')->get(),
-    'products' => Product::orderByDesc('id')->get(),
-  ]);
-});
-
 Route::get('/admin', function () {
   return view('auth.login');
 });
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/', [HomeController::class, 'index'])->name('home');
 
 Route::group(['middleware' => ['auth']], function() {
   Route::resource('roles', RoleController::class);
