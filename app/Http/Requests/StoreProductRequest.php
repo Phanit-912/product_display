@@ -24,9 +24,18 @@ class StoreProductRequest extends FormRequest
     public function rules()
     {
         return [
-          'category_name' => 'required|string',
-          'category_code' => '',
-          'category_note' => '',
+          'product_name' => 'required|string',
+          'product_cost' => 'nullable|numeric',
+          'product_general_price' => 'required|numeric',
+          'product_wholesale_price' => 'nullable|numeric',
+          'product_special_price' => 'nullable|numeric',
+          'product_barcode' => 'string|nullable',
+          'product_description' => 'string|nullable',
+
+          'product_image' => 'nullable|image|mimes:jpeg,png,jpg,svg,web,webp|max:2048',
+
+          'product_category_id' => 'nullable|int',
+          'product_brand_id' => 'nullable|int',
 
           'created_by_id' => 'required|int',
           'created_by_name' => 'required|string',
@@ -35,9 +44,18 @@ class StoreProductRequest extends FormRequest
 
     protected function prepareForValidation() {
       $this->merge([
-        'category_name' => strip_tags($this->category_name),
-        'category_code' => strip_tags($this->category_code),
-        'category_note' => strip_tags($this->category_note),
+        'product_name' => strip_tags($this->product_name),
+        'product_cost' => strip_tags($this->product_cost),
+        'product_general_price' => strip_tags($this->product_general_price),
+        'product_wholesale_price' => strip_tags($this->product_wholesale_price),
+        'product_special_price' => strip_tags($this->product_special_price),
+        'product_barcode' => strip_tags($this->product_barcode),
+        'product_description' => strip_tags($this->product_description),
+
+        'product_image' => strip_tags($this->product_image),
+
+        'product_category_id' => strip_tags($this->product_category_id),
+        'product_brand_id' => strip_tags($this->product_brand_id),
 
         'created_by_id' => strip_tags($this->created_by_id),
         'created_by_name' => strip_tags($this->created_by_name),

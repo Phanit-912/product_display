@@ -16,10 +16,10 @@ return new class extends Migration
         Schema::create('products', function (Blueprint $table) {
           $table->id();
           $table->string('product_name');
-          $table->string('product_cost');
-          $table->string('product_general_price');
-          $table->string('product_wholesale_price');
-          $table->string('product_special_price');
+          $table->decimal('product_cost', 15,2)->nullable()->default(0.00);
+          $table->decimal('product_general_price', 15,2)->default(0.00);
+          $table->decimal('product_wholesale_price', 15,2)->nullable()->default(0.00);
+          $table->decimal('product_special_price', 15,2)->nullable()->default(0.00);
           $table->string('product_barcode');
           $table->string('product_description');
           $table->string('product_image')->nullable()->default(NULL);

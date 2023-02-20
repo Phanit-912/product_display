@@ -37,10 +37,13 @@
 <a class="text-decoration-none text-dark">
   <div class="w-100 d-flex justify-content-between border-bottom py-2">
     <div class="w-100 d-flex justify-content-between">
-      <p class="text-center text-truncate m-0" style="width: 5%;">Id</p>
-      <p class="text-truncate m-0" style="width: 25%;">Name</p>
-      <p class="text-truncate m-0" style="width: 30%;">Email</p>
-      <p class="text-truncate m-0" style="width: 40%;">Note</p>
+      <p class="text-center text-truncate m-0" style="width: 5%;"></p>
+      <p class="text-truncate m-0" style="width: 35%;">Name</p>
+      <p class="text-truncate m-0" style="width: 15%;">Brand</p>
+      <p class="text-truncate m-0" style="width: 15%;">Category</p>
+      <p class="text-truncate m-0" style="width: 10%;">Price</p>
+      <p class="text-truncate m-0" style="width: 10%;">Wholsale</p>
+      <p class="text-truncate m-0" style="width: 10%;">Special</p>
     </div>
     <div>
       <p class="text-truncate m-0" style="width: 2em;"></p>
@@ -57,7 +60,7 @@
     <div class="modal-content">
       <div class="modal-body" data-bs-dismiss="modal" aria-label="Close">
 
-        <form action="{{ route('users.destroy', $product->id) }}" method="post">
+        <form action="{{ route('products.destroy', $product->id) }}" method="post">
 
           @csrf
           @method('DELETE')
@@ -86,23 +89,33 @@
 {{-- End Delete Modal --}}
 
   <div class="table_hover w-100 d-flex justify-content-between align-items-center border-bottom">
-    <a href="{{ route('users.show',$product->id) }}" class="w-100 text-decoration-none text-dark py-3 waves-effect">
-      <div class="w-100 d-flex justify-content-between">
-        <p class="text-center text-truncate m-0" style="width: 5%;">{{ $product->id }}</p>
-        <p class="text-truncate m-0" style="width: 25%;">{{ $product->name }}</p>
-        <p class="text-truncate m-0" style="width: 30%;">{{ $product->detail }}</p>
-        <p class="text-truncate m-0" style="width: 40%;">{{ $product->created_at }}</p>
+    <a href="{{ route('products.show',$product->id) }}" class="w-100 text-decoration-none text-dark py-2 waves-effect">
+      <div class="w-100 d-flex justify-content-between align-items-center">
+        <p class="text-center text-truncate m-0" style="width: 5%;">
+          <img @if ($product['product_image'] != null)
+              src="{{ url( '/storage/' . $product['product_image']) }}"
+            @else
+              src="{{ url('image/no_image.jpg') }}"
+            @endif 
+            alt="image" style="width: 2em; height: 2em;">  
+        </p>
+        <p class="text-truncate m-0" style="width: 35%;">{{ $product->product_name }}</p>
+        <p class="text-truncate m-0" style="width: 15%;">{{ $product->brand_name }}</p>
+        <p class="text-truncate m-0" style="width: 15%;">{{ $product->category_name }}</p>
+        <p class="text-truncate m-0" style="width: 10%;">$ {{ $product->product_general_price }}</p>
+        <p class="text-truncate m-0" style="width: 10%;">$ {{ $product->product_wholesale_price }}</p>
+        <p class="text-truncate m-0" style="width: 10%;">$ {{ $product->product_special_price }}</p>
       </div>
     </a>
-    <p class="text-truncate" style="width: 2em;">
+    <p class="text-truncate">
       <div class="dropdown pe-3">
         <h6 class="transparent" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi bi-three-dots-vertical"></i></h6>
         <ul class="dropdown-menu">
           @can('product_list')
-          <li><a class="dropdown-item" href="{{ route('users.show',$product->id) }}">Detail</a></li>
+          <li><a class="dropdown-item" href="{{ route('products.show',$product->id) }}">Detail</a></li>
           @endcan
           @can('product_edit')
-            <li><a class="dropdown-item" href="{{ route('users.edit',$product->id) }}">Update</a></li>
+            <li><a class="dropdown-item" href="{{ route('products.edit',$product->id) }}">Update</a></li>
           @endcan
           @can('product_delete')
           <li><a class="dropdown-item text-danger" href="#" data-bs-toggle="modal" data-bs-target="#DeleteModal">Delete</a></li>

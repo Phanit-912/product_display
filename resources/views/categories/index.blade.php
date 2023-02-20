@@ -32,7 +32,7 @@
   <div class="w-100 d-flex justify-content-between border-bottom py-2">
     <div class="w-100 d-flex justify-content-between">
       <p class="text-center text-truncate m-0" style="width: 5%;">Id</p>
-      <p class="text-truncate m-0" style="width: 25%;">Brand Name</p>
+      <p class="text-truncate m-0" style="width: 25%;">Category Name</p>
       <p class="text-truncate m-0" style="width: 30%;">Code</p>
       <p class="text-truncate m-0" style="width: 40%;">Note</p>
     </div>

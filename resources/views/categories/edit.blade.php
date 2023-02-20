@@ -37,7 +37,7 @@
 
     <div class="w-100 d-flex justify-content-between">
       <div class="w-100 input-field">
-        <input type="text" class="validate" id="category_name" name="category_name" value="{{ old('category_name', $category->category_name) }}">
+        <input type="text" class="validate" id="category_name" name="category_name" value="{{ old('category_name', $category->category_name) }}" autofocus>
         <label for="category_name">Category Name</label>
 
         @error('category_name')

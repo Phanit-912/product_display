@@ -7,7 +7,7 @@
 
   <div class="w-100 d-flex justify-content-between  align-items-center border-bottom">
     <div class="ms-3">
-      <a href="{{ route('peoducts.index') }}">
+      <a href="{{ route('products.index') }}">
           <h5 class="m-0 blue-grey-text"><i class="bi bi-arrow-left-square"></i></h5>
       </a>
     </div>
@@ -19,7 +19,7 @@
     <div class="text-end me-3">
 
       {{-- @can('product_create')
-        <a href="{{ route('peoducts.create') }}">
+        <a href="{{ route('products.create') }}">
             <h5 class="m-0 green-text text-accent-4"><i class="bi bi-plus-square"></i></h5>
         </a>
       @endcan --}}
@@ -29,55 +29,178 @@
   {{-- End Header --}}
 </div>
 
-<form action="{{ route('peoducts.store') }}" method="POST">
+<form action="{{ route('products.store') }}" method="POST" enctype="multipart/form-data">
   @csrf
 
-  <div class="w-50 m-auto p-4 border border-danger rounded">
+  <div class="w-75 m-auto p-4 border border-danger rounded">
 
     <div class="w-100 d-flex justify-content-between">
-      <div class="w-100 input-field">
-        <input type="text" class="validate" id="category_name" name="category_name" value="{{ old('category_name') }}">
-        <label for="category_name">Category Name</label>
+      <div class="w-100">
+        <div class="w-100">
 
-        @error('category_name')
-          <span class="helper-text red-text" data-error="wrong" data-success="right">{{ $message }}</span>
-        @enderror
+          <div class="w-100 d-flex justify-content-center mb-1">
+            <img src="{{ url('image/no_image.jpg') }}" alt="" class="product_create_img" id="frame">
+          </div>
+  
+          {{-- Product Image --}}
+          <div class="w-100 d-flex justify-content-center">
+              <label class="btn mx-auto mt-2" style="cursor: pointer;">
+                Upload Image
+                <input type="file" size="60" style="display: none" name="product_image" id="formFile" onchange="preview()">
+            </label>
+            
+          </div>
+
+        </div>
+        
+        <div class="w-100 input-field mb-4">
+          <input type="text" class="validate" id="product_name" name="product_name" value="{{ old('product_name') }}" autofocus>
+          <label for="product_name">Product Name</label>
+  
+          @error('product_name')
+            <span class="helper-text red-text" data-error="wrong" data-success="right">{{ $message }}</span>
+          @enderror
+  
+        </div>
+
+        <div class="w-100 input-field mb-4">
+          <input type="text" class="validate" id="product_barcode" name="product_barcode" value="{{ old('product_barcode') }}">
+          <label for="product_barcode">Barcode</label>
+  
+          @error('product_barcode')
+            <span class="helper-text red-text" data-error="wrong" data-success="right">{{ $message }}</span>
+          @enderror
+  
+        </div>
+
+        <div class="w-100">
+          <div class="w-100 d-flex justify-content-between">
+
+            <div class="w-100 input-field mb-4">
+              <input type="text" class="validate" id="product_cost" name="product_cost" onClick="this.setSelectionRange(0, this.value.length)" value="{{ old('product_cost', 0) }}">
+              <label for="product_cost">Cost</label>
+      
+              @error('product_cost')
+                <span class="helper-text red-text" data-error="wrong" data-success="right">{{ $message }}</span>
+              @enderror
+      
+            </div>
+
+            <div class="mx-3"></div>
+
+            <div class="w-100 input-field mb-4">
+              <input type="text" class="validate" id="product_general_price" name="product_general_price" onClick="this.setSelectionRange(0, this.value.length)" value="{{ old('product_general_price', 0) }}">
+              <label for="product_general_price">General Price</label>
+      
+              @error('product_general_price')
+                <span class="helper-text red-text" data-error="wrong" data-success="right">{{ $message }}</span>
+              @enderror
+      
+            </div>
+          </div>
+
+          <div class="w-100 d-flex justify-content-between">
+            <div class="w-100 input-field mb-4">
+              <input type="text" class="validate" id="product_wholesale_price" name="product_wholesale_price" onClick="this.setSelectionRange(0, this.value.length)" value="{{ old('product_wholesale_price', 0) }}">
+              <label for="product_wholesale_price">Wholesale Price</label>
+      
+              @error('product_wholesale_price')
+                <span class="helper-text red-text" data-error="wrong" data-success="right">{{ $message }}</span>
+              @enderror
+      
+            </div>
+
+            <div class="mx-3"></div>
+
+            <div class="w-100 input-field mb-4">
+              <input type="text" class="validate" id="product_special_price" name="product_special_price" onClick="this.setSelectionRange(0, this.value.length)" value="{{ old('product_special_price', 0) }}">
+              <label for="product_special_price">Sepial Price</label>
+      
+              @error('product_special_price')
+                <span class="helper-text red-text" data-error="wrong" data-success="right">{{ $message }}</span>
+              @enderror
+      
+            </div>
+          </div>
+
+          <input type="hidden" name="created_by_id" value="{{ Auth::user()->id }}">
+          <input type="hidden" name="created_by_name" value="{{ Auth::user()->name }}">      
+
+          <div class="w-100 d-flex justify-content-between">
+            <div class="w-100 input-field">
+  
+              @error('created_by_id')
+                <span class="helper-text red-text" data-error="wrong" data-success="right">{{ $message }}</span>
+              @enderror
+  
+              @error('created_by_name')
+                <span class="helper-text red-text" data-error="wrong" data-success="right">{{ $message }}</span>
+              @enderror
+  
+            </div>
+          </div>
+
+        </div>
 
       </div>
-
       <div class="mx-3"></div>
+      <div class="w-100">
 
-      <div class="w-100 input-field">
-        <input type="text" class="validate" id="category_code" name="category_code" value="{{ old('category_code') }}">
-        <label for="category_code">Category Code</label>
+        <div class="w-100 d-flex justify-content-between">
 
-        @error('category_code')
-          <span class="helper-text red-text" data-error="wrong" data-success="right">{{ $message }}</span>
-        @enderror
+          <div class="w-100 input-field">
+            <select name="product_category_id">
 
-      </div>
-    </div>
+              @foreach ($categories as $category)
+                @if ($category->id == 1)
+                  <option value="{{ $category->id }}" selected>{{ $category->category_name }}</option>
+                @endif
+                @if ($category->id != 1)
+                  <option value="{{ $category->id }}">{{ $category->category_name }}</option>
+                @endif
+              @endforeach
 
-    <input type="hidden" name="created_by_id" value="{{ Auth::user()->id }}">
-    <input type="hidden" name="created_by_name" value="{{ Auth::user()->name }}">
+            </select>
+            <label>Select Category</label>
 
-    <div class="w-100 d-flex justify-content-between">
-      <div class="w-100 input-field">
-        <textarea id="category_note" class="materialize-textarea" name="category_note">{{ old('category_note') }}</textarea>
-        <label for="category_note">Category Note</label>
+            @error('product_description')
+              <span class="helper-text red-text" data-error="wrong" data-success="right">{{ $message }}</span>
+            @enderror
 
-        @error('category_note')
-          <span class="helper-text red-text" data-error="wrong" data-success="right">{{ $message }}</span>
-        @enderror
+          </div>
 
-        @error('created_by_id')
-          <span class="helper-text red-text" data-error="wrong" data-success="right">{{ $message }}</span>
-        @enderror
+          <div class="mx-3"></div>
 
-        @error('created_by_name')
-          <span class="helper-text red-text" data-error="wrong" data-success="right">{{ $message }}</span>
-        @enderror
+          <div class="w-100 input-field">
+            <select name="product_brand_id">
+              @foreach ($brands as $brand)
+                @if ($brand->id == 1)
+                  <option value="{{ $brand->id }}" selected>{{ $brand->brand_name }}</option>
+                @endif
+                @if ($brand->id != 1)
+                  <option value="{{ $brand->id }}">{{ $brand->brand_name }}</option>
+                @endif
+              @endforeach
+            </select>
+            <label>Select Brand</label>
 
+            @error('product_brand_id')
+              <span class="helper-text red-text" data-error="wrong" data-success="right">{{ $message }}</span>
+            @enderror
+
+          </div>
+        </div>
+
+        <div class="w-100 input-field mb-4">
+          <textarea id="product_description" class="materialize-textarea" name="product_description">{{ old('product_description') }}</textarea>
+          <label for="product_description">Description</label>
+  
+          @error('product_description')
+            <span class="helper-text red-text" data-error="wrong" data-success="right">{{ $message }}</span>
+          @enderror
+  
+        </div>
+        
       </div>
     </div>
 
@@ -97,5 +220,24 @@
   </div>
 
 </form>
+
+<script>
+  // Preview Image
+  function preview() {
+      frame.src = URL.createObjectURL(event.target.files[0]);
+  }
+
+  function clearImage() {
+      document.getElementById('formFile').value = null;
+      frame.src = "";
+  }
+  // Preview Image
+
+  // Select Category & Brand
+  document.addEventListener('DOMContentLoaded', function() {
+    var elems = document.querySelectorAll('select');
+    M.FormSelect.init(elems);
+  });
+</script>
 
 @endsection

@@ -38,7 +38,7 @@
 
         <div class="w-100 d-flex justify-content-between">
           <div class="w-100 input-field">
-            <input type="text" class="validate" id="brand_name" name="brand_name" value="{{ old('brand_name', $brand->brand_name) }}">
+            <input type="text" class="validate" id="brand_name" name="brand_name" value="{{ old('brand_name', $brand->brand_name) }}" autofocus>
             <label for="brand_name">Brand Name</label>
 
             @error('brand_name')

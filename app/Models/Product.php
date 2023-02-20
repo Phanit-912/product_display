@@ -23,6 +23,7 @@ class Product extends Model
       'product_special_price',
       'product_barcode',
       'product_description',
+      
       'product_image',
 
       'product_category_id',

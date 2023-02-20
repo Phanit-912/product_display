@@ -107,7 +107,7 @@
         @can('product_view')
         <a href="{{ route('products.index') }}">
           <button class="transparent border-0 rounded-0 w-100 pt-2 pb-2 bg-transparent waves-effect waves-green">              
-              <h2 class="m-0 green-text text-darken-2"><i class="bi fs-1 bi-x-diamond"></i></h2>
+              <h2 class="m-0 green-text text-darken-2"><i class="bi fs-1 bi-receipt"></i></h2>
               <p class="m-0 green-text text-darken-2 nav_font py-1">Quote</p>
           </button>
         </a>

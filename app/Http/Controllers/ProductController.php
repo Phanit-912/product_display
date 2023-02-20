@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
+use App\Models\Category;
+use App\Models\Brand;
 use App\Http\Requests\StoreProductRequest;
 use App\Http\Requests\UpdateProductRequest;
 
@@ -29,7 +31,11 @@ class ProductController extends Controller
     public function index()
     {
       //GET
-      $products = Product::orderByDesc('id')->get();
+      $products = Product::orderByDesc('id')
+      ->leftJoin('categories', 'products.product_category_id', '=', 'categories.id')
+      ->leftJoin('brands', 'products.product_brand_id', '=', 'brands.id')
+      ->select('products.*', 'categories.category_name', 'brands.brand_name')
+      ->get();
 
       return view('products.index', [
         'products' => $products,
@@ -43,7 +49,14 @@ class ProductController extends Controller
      */
     public function create()
     {
-        //
+        //GET
+        $categories = Category::orderByDesc('id')->get();
+        $brands = Brand::orderByDesc('id')->get();
+  
+        return view('products.create', [
+          'categories' => $categories,
+          'brands' => $brands,
+        ]);
     }
 
     /**
@@ -54,7 +67,34 @@ class ProductController extends Controller
      */
     public function store(StoreProductRequest $request)
     {
-        //
+        //POST
+        $data = $request->validated();
+
+        if ($request->file('product_image') != null) {
+          $imagePath = $request->file('product_image')->store('product_images', 'public');
+        } else {
+          $imagePath = '';
+        }
+
+        Product::create([
+          'product_name' => $data['product_name'],
+          'product_cost' => $data['product_cost'],
+          'product_general_price' => $data['product_general_price'],
+          'product_wholesale_price' => $data['product_wholesale_price'],
+          'product_special_price' => $data['product_special_price'],
+          'product_barcode' => $data['product_barcode'],
+          'product_description' => $data['product_description'],
+
+          'product_image' => $imagePath,
+
+          'product_category_id' => $data['product_category_id'],
+          'product_brand_id' => $data['product_brand_id'],
+
+          'created_by_id' => $data['created_by_id'],
+          'created_by_name' => $data['created_by_name'],
+        ]);
+
+        return redirect()->route('products.index');
     }
 
     /**
@@ -65,7 +105,15 @@ class ProductController extends Controller
      */
     public function show(Product $product)
     {
-        //
+        //GEt
+        $category = Category::where('categories.id', '=', $product->product_category_id)->get();
+        $brand = Brand::where('brands.id', '=', $product->product_brand_id)->get();
+
+        return view('products.show', [
+          'product' => $product,
+          'category' => $category,
+          'brand' => $brand,
+        ]);
     }
 
     /**
@@ -76,7 +124,15 @@ class ProductController extends Controller
      */
     public function edit(Product $product)
     {
-        //
+        //GET
+        $categories = Category::orderByDesc('id')->get();
+        $brands = Brand::orderByDesc('id')->get();
+  
+        return view('products.edit', [
+          'product' => $product,
+          'categories' => $categories,
+          'brands' => $brands,
+        ]);
     }
 
     /**
@@ -88,7 +144,34 @@ class ProductController extends Controller
      */
     public function update(UpdateProductRequest $request, Product $product)
     {
-        //
+        //PUT
+        $data = $request->validated();
+
+        if ($request->file('product_image') != null) {
+          $imagePath = $request->file('product_image')->store('product_images', 'public');
+        } else {
+          $imagePath = $product->product_image;
+        }
+
+        $product->update([
+          'product_name' => $data['product_name'],
+          'product_cost' => $data['product_cost'],
+          'product_general_price' => $data['product_general_price'],
+          'product_wholesale_price' => $data['product_wholesale_price'],
+          'product_special_price' => $data['product_special_price'],
+          'product_barcode' => $data['product_barcode'],
+          'product_description' => $data['product_description'],
+
+          'product_image' => $imagePath,
+
+          'product_category_id' => $data['product_category_id'],
+          'product_brand_id' => $data['product_brand_id'],
+
+          'updated_by_id' => $data['updated_by_id'],
+          'updated_by_name' => $data['updated_by_name'],
+        ]);
+
+        return redirect()->route('products.index');
     }
 
     /**

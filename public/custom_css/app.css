@@ -58,6 +58,11 @@
   height: 10em;
   object-fit: cover;
 }
+.product_show_detail {
+  width: 20em;
+  height: auto;
+  object-fit: cover;
+}
 /* End Product */
 
 

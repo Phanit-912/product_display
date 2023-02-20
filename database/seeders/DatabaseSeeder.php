@@ -16,8 +16,12 @@ class DatabaseSeeder extends Seeder
     {
         // \App\Models\User::factory(10)->create();
 
-        $this->call(PermissionTableSeeder::class);
-        $this->call(CreateAdminUserSeeder::class);
+        $this->call([
+          PermissionTableSeeder::class,
+          CreateAdminUserSeeder::class,
+          DefualtBrandSeeder::class,
+          DefualtCategorySeeder::class,
+        ]);
 
         // \App\Models\User::factory()->create([
         //     'name' => 'Test User',

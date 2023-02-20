@@ -13,6 +13,19 @@ class BrandController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    function __construct()
+    {
+         $this->middleware('permission:brand_view|brand_create|brand_edit|brand_delete', ['only' => ['index','show']]);
+         $this->middleware('permission:brand_create', ['only' => ['create','store']]);
+         $this->middleware('permission:brand_edit', ['only' => ['edit','update']]);
+         $this->middleware('permission:brand_delete', ['only' => ['destroy']]);
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function index()
     {
         //GET

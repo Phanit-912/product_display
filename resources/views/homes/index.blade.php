@@ -112,7 +112,7 @@
 
         <p class="py-2 border-bottom text-success">Category</p>
         @foreach ($categories as $category)
-            <p>{{ $category->category_name }}</p>
+            <p class="sidenav-close"><a class="text-dark" href="#{{ $category->category_name }}_{{ $category->id }}">{{ $category->category_name }}</a></p>
         @endforeach
 
         <div class="py-4"></div>
@@ -142,44 +142,61 @@
     {{-- Product View --}}
     <div class="w-100 d-flex justify-content-center flex-wrap align-content-start p-3" id="viewEvent">
 
-      {{-- Modal Product Detail --}}
-        <div id="modalProduct_Grid" class="modal modalProduct">
-          <div class="modal-content">
-            <p>Hello This is modal detail!!</p>
-          </div>
-          <div class="modal-footer">
-            <a href="#" class="modal-close waves-effect waves-green btn-flat">Agree</a>
-          </div>
+      @foreach ($categories as $key => $category)
+      <div class="pt-4"  id="{{ $category->category_name }}_{{ $category->id }}"></div>
+        <div class="w-100 bg-white p-3 rounded border-bottom border-danger shadow">
+          <p class="m-0 p-0">{{ $category->category_name }}</p>
         </div>
-      {{-- End Modal Product Detail --}}
 
-      <div class="product_card bg-white m-3 rounded-4 shadow modal-trigger" data-target="modalProduct_Grid">
-        <div class="rounded-4 product_image">
-          <img src="https://img.freepik.com/premium-vector/cute-robot-cyborg-modern-robotic-character-artificial-intelligence-technology-concept-vector-illustration_48369-42931.jpg?w=826" class="w-100 product_image rounded-4" alt="">
-        </div>
-        <div class="product_title">
-          <p class="m-0 p-0 product_price"><span class="rounded-top px-1 pb-2 bg-white">$ 9999.00</span></p>
-          <p class="m-0 p-2 text-secondary">Product Name Product Name Product Name Product Name Product NameProduct NameProduct Name</p>
-        </div>
-      </div>
+        @foreach ($products as $product)
+
+          @if ($category->id == $product->product_category_id)
+          
+            {{-- Modal Product Detail --}}
+              <div id="modalProduct_Grid{{ $product->id }}" class="modal modalProduct">
+                <div class="modal-content">
+                  
+                  <div class="w-100 d-flex justify-content-center">
+                    <img @if ($product['product_image'] != null)
+                        src="{{ url( '/storage/' . $product['product_image']) }}"
+                      @else
+                        src="{{ url('image/no_image.jpg') }}"
+                      @endif 
+                      alt="image" class="rounded" style="width: 18em; height: 18em; object-fit: cover;">  
+                  </div>
+
+                  <p>{{ $product->product_name }}</p>
+                  <p>{{ $product->product_general_price }}</p>
+                  <p>{{ $product->product_wholesale_price }}</p>
+                  <p>{{ $product->product_special_price }}</p>
+                  <p>{{ $product->product_description }}</p>
+                </div>
+              </div>
+            {{-- End Modal Product Detail --}}
+
+            <div class="product_card bg-white m-3 rounded-4 shadow modal-trigger" data-target="modalProduct_Grid{{ $product->id }}">
+              <div class="rounded-4 product_image">
+                <img @if ($product['product_image'] != null)
+                      src="{{ url( '/storage/' . $product['product_image']) }}"
+                    @else
+                      src="{{ url('image/no_image.jpg') }}"
+                    @endif 
+                    alt="image" class="w-100 product_image rounded-4">  
+              </div>
+              <div class="product_title">
+                <p class="m-0 p-0 product_price"><span class="rounded-top px-1 pb-2 bg-white">$ {{ $product->product_general_price }}</span></p>
+                <p class="m-0 p-2 text-secondary">{{ $product->product_name }}</p>
+              </div>
+            </div>
+
+          @endif
+
+        @endforeach
+      
+      @endforeach
 
 
-      <script>
-
-        for (let index = 0; index < 48; index++) {
-          document.write('<div class="product_card bg-white m-3 rounded-4  shadow modal-trigger" data-target="modalProduct_Grid">');
-
-            document.write('<div class="rounded-4 product_image">');
-              document.write('<img src="https://img.freepik.com/free-vector/cute-dog-robot-cartoon-character-animal-technology-isolated_138676-3143.jpg?w=826&t=st=1676619039~exp=1676619639~hmac=c432b4adac064d5eca8797148c0265248b8446bec731fdd7061f036fd62d17e9" class="w-100 product_image rounded-4" alt="">');
-            document.write('</div>');
-            
-            document.write('<div class="product_title">');
-            document.write('<p class="m-0 p-0 product_price"><span class="rounded-top px-1 pb-2 bg-white">$ 9999.00</span></p>');
-            document.write('<p class="m-0 p-2 text-secondary">Hikvision SSD 128G Warranty 2 Years '+ '- N.' + index +'</p>');
-            document.write('</div>');
-          document.write('</div>');
-        }
-        
+      <script>        
 
         // For Modal Product
         document.addEventListener('DOMContentLoaded', function() {
