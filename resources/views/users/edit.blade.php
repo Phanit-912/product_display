@@ -83,7 +83,11 @@
         </div>
     </div>
     <div class="col-xs-12 col-sm-12 col-md-12 text-center">
+
+      @can('user_edit')
         <button type="submit" class="btn btn-primary">Submit</button>
+      @endcan
+
     </div>
 </div>
 {!! Form::close() !!}

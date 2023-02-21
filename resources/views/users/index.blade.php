@@ -96,7 +96,7 @@
       <div class="dropdown pe-3">
         <h6 class="transparent" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi bi-three-dots-vertical"></i></h6>
         <ul class="dropdown-menu">
-          @can('user_list')
+          @can('user_view')
           <li><a class="dropdown-item" href="{{ route('users.show',$user->id) }}">Detail</a></li>
           @endcan
           @can('user_edit')

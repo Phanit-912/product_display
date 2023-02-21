@@ -23,7 +23,7 @@
 
     <div class="text-end me-3">
 
-      @can('product_create')
+      @can('brand_edit')
         <a href="{{ route('brands.edit', $brand->id) }}">
             <h5 class="m-0 green-text text-accent-4"><i class="bi bi-pencil-square"></i></h5>
         </a>

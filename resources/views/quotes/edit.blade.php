@@ -13,7 +13,7 @@
     </div>
 
     <div class="w-100 text-center">
-      <h4 class="text-truncate mx-0 my-3">New Brand</h4>
+      <h4 class="text-truncate mx-0 my-3">Update Brand</h4>
     </div>
 
     <div class="text-end me-3">
@@ -30,14 +30,15 @@
 </div>
 
 
-    <form action="{{ route('brands.store') }}" method="POST">
+    <form action="{{ route('brands.update', ['brand' => $brand->id]) }}" method="POST">
     	@csrf
+      @method('PUT')
 
       <div class="w-50 m-auto p-4 border border-danger rounded">
 
         <div class="w-100 d-flex justify-content-between">
           <div class="w-100 input-field">
-            <input type="text" class="validate" id="brand_name" name="brand_name" value="{{ old('brand_name') }}" autofocus>
+            <input type="text" class="validate" id="brand_name" name="brand_name" value="{{ old('brand_name', $brand->brand_name) }}" autofocus>
             <label for="brand_name">Brand Name</label>
 
             @error('brand_name')
@@ -49,7 +50,7 @@
           <div class="mx-3"></div>
 
           <div class="w-100 input-field">
-            <input type="text" class="validate" id="brand_code" name="brand_code" value="{{ old('brand_code') }}">
+            <input type="text" class="validate" id="brand_code" name="brand_code" value="{{ old('brand_code', $brand->brand_code) }}">
             <label for="brand_code">Brand Code</label>
 
             @error('brand_code')
@@ -59,23 +60,23 @@
           </div>
         </div>
 
-        <input type="hidden" name="created_by_id" value="{{ Auth::user()->id }}">
-        <input type="hidden" name="created_by_name" value="{{ Auth::user()->name }}">
+        <input type="hidden" name="updated_by_id" value="{{ Auth::user()->id }}">
+        <input type="hidden" name="updated_by_name" value="{{ Auth::user()->name }}">
 
         <div class="w-100 d-flex justify-content-between">
           <div class="w-100 input-field">
-            <textarea id="brand_note" class="materialize-textarea" name="brand_note">{{ old('brand_note') }}</textarea>
+            <textarea id="brand_note" class="materialize-textarea" name="brand_note">{{ old('brand_note', $brand->brand_note) }}</textarea>
             <label for="brand_note">Brand Note</label>
 
             @error('brand_note')
               <span class="helper-text red-text" data-error="wrong" data-success="right">{{ $message }}</span>
             @enderror
 
-            @error('created_by_id')
+            @error('updated_by_id')
               <span class="helper-text red-text" data-error="wrong" data-success="right">{{ $message }}</span>
             @enderror
 
-            @error('created_by_name')
+            @error('updated_by_name')
               <span class="helper-text red-text" data-error="wrong" data-success="right">{{ $message }}</span>
             @enderror
 
@@ -87,15 +88,12 @@
           <a href="{{ route('brands.index') }}">
             <button class="btn red darken-1 waves-effect waves-light" type="button">Cancel</button>
           </a>
-          
-          @can('brand_create')
-            <div class="mx-3"></div>
 
-            <a>
-              <button class="btn blue darken-1 waves-effect waves-light" type="submit" name="action">Create</button>
-            </a>
-          @endcan
+          <div class="mx-3"></div>
 
+          <a>
+            <button class="btn blue darken-1 waves-effect waves-light" type="submit" name="action">Update</button>
+          </a>
         </div>
         
       </div>

@@ -74,6 +74,7 @@
           <div class="w-100 d-flex justify-content-end">
             <button type="button" class="btn btn-secondary"  data-bs-dismiss="modal" aria-label="Close">Cancel</button>
             <div class="mx-2"></div>
+
             @can('product_delete')
               <button type="submit" class="btn btn-outline-danger">Confirm</button>
             @endcan
@@ -111,7 +112,8 @@
       <div class="dropdown pe-3">
         <h6 class="transparent" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi bi-three-dots-vertical"></i></h6>
         <ul class="dropdown-menu">
-          @can('product_list')
+
+          @can('product_view')
           <li><a class="dropdown-item" href="{{ route('products.show',$product->id) }}">Detail</a></li>
           @endcan
           @can('product_edit')

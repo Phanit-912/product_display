@@ -7,7 +7,7 @@
 
   <div class="w-100 d-flex justify-content-between  align-items-center border-bottom">
     <div class="ms-3">
-      <a href="{{ route('brands.index') }}">
+      <a href="{{ route('quotes.index') }}">
           <h5 class="m-0 blue-grey-text"><i class="bi bi-arrow-left-square"></i></h5>
       </a>
     </div>
@@ -19,7 +19,7 @@
     <div class="text-end me-3">
 
       {{-- @can('product_create')
-        <a href="{{ route('brands.create') }}">
+        <a href="{{ route('quotes.create') }}">
             <h5 class="m-0 green-text text-accent-4"><i class="bi bi-plus-square"></i></h5>
         </a>
       @endcan --}}
@@ -30,7 +30,7 @@
 </div>
 
 
-    <form action="{{ route('brands.store') }}" method="POST">
+    <form action="{{ route('quotes.store') }}" method="POST">
     	@csrf
 
       <div class="w-50 m-auto p-4 border border-danger rounded">
@@ -84,11 +84,11 @@
 
         <div class="w-100 d-flex justify-content-end">
 
-          <a href="{{ route('brands.index') }}">
+          <a href="{{ route('quotes.index') }}">
             <button class="btn red darken-1 waves-effect waves-light" type="button">Cancel</button>
           </a>
-          
-          @can('brand_create')
+
+          @can('quote_create')
             <div class="mx-3"></div>
 
             <a>

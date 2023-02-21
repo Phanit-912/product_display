@@ -23,7 +23,7 @@
 
     <div class="text-end me-3">
 
-      @can('product_create')
+      @can('brand_create')
         <a href="{{ route('brands.create') }}">
             <h5 class="m-0 green-text text-accent-4"><i class="bi bi-plus-square"></i></h5>
         </a>
@@ -72,7 +72,7 @@
 
         <div class="mx-2"></div>
         
-        @can('product_delete')
+        @can('brand_delete')
           <button type="submit" class="btn waves-effect red lighten-1 white-text">Confirm</button>
         @endcan
 
@@ -96,13 +96,16 @@
       <div class="dropdown pe-3">
         <h6 class="transparent" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi bi-three-dots-vertical"></i></h6>
         <ul class="dropdown-menu">
-          @can('product_list')
+
+          @can('brand_view')
           <li><a class="dropdown-item" href="{{ route('brands.show',$brand->id) }}">Detail</a></li>
           @endcan
-          @can('product_edit')
+
+          @can('brand_edit')
             <li><a class="dropdown-item" href="{{ route('brands.edit',$brand->id) }}">Update</a></li>
           @endcan
-          @can('product_delete')
+          
+          @can('brand_delete')
           <li><a class="dropdown-item text-danger modal-trigger" href="#modal{{ $brand->id }}">Delete</a></li>
           @endcan
 

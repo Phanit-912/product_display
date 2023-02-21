@@ -89,11 +89,14 @@
             <button class="btn red darken-1 waves-effect waves-light" type="button">Cancel</button>
           </a>
 
-          <div class="mx-3"></div>
+          @can('brand_edit')
+            <div class="mx-3"></div>
 
-          <a>
-            <button class="btn blue darken-1 waves-effect waves-light" type="submit" name="action">Update</button>
-          </a>
+            <a>
+              <button class="btn blue darken-1 waves-effect waves-light" type="submit" name="action">Update</button>
+            </a>
+          @endcan
+
         </div>
         
       </div>

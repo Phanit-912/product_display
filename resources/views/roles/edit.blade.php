@@ -72,7 +72,11 @@
       </div>
 
       <div class="w-100 d-flex justify-content-center mt-3 pb-2 border-bottom">
-        <button type="submit" class="btn btn-primary px-4">Submit</button>
+
+        @can('role_edit')
+          <button type="submit" class="btn btn-primary px-4">Submit</button>
+        @endcan
+
       </div>
 
     </div>

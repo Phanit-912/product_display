@@ -21,9 +21,13 @@
     </div>
 
     <div class="text-end me-3">
-      <a href="{{ route('roles.edit', ['role' => $role->id]) }}">
-          <h5 class="m-0 green-text text-accent-4"><i class="bi bi-pencil-square"></i></h5>
-      </a>
+      
+      @can('role_edit')
+        <a href="{{ route('roles.edit', ['role' => $role->id]) }}">
+            <h5 class="m-0 green-text text-accent-4"><i class="bi bi-pencil-square"></i></h5>
+        </a>
+      @endcan
+
     </div>
   </div>
   {{-- End Header --}}

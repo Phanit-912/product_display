@@ -17,7 +17,7 @@
 
     <div class="text-end me-3">
 
-      @can('product_create')
+      @can('category_create')
         <a href="{{ route('categories.create') }}">
             <h5 class="m-0 green-text text-accent-4"><i class="bi bi-plus-square"></i></h5>
         </a>
@@ -66,7 +66,7 @@
 
         <div class="mx-2"></div>
         
-        @can('product_delete')
+        @can('category_delete')
           <button type="submit" class="btn waves-effect red lighten-1 white-text">Confirm</button>
         @endcan
 
@@ -90,13 +90,16 @@
       <div class="dropdown pe-3">
         <h6 class="transparent" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi bi-three-dots-vertical"></i></h6>
         <ul class="dropdown-menu">
-          @can('product_list')
+
+          @can('category_view')
           <li><a class="dropdown-item" href="{{ route('categories.show',$category->id) }}">Detail</a></li>
           @endcan
-          @can('product_edit')
+
+          @can('category_edit')
             <li><a class="dropdown-item" href="{{ route('categories.edit',$category->id) }}">Update</a></li>
           @endcan
-          @can('product_delete')
+
+          @can('category_delete')
           <li><a class="dropdown-item text-danger modal-trigger" href="#modal{{ $category->id }}">Delete</a></li>
           @endcan
 

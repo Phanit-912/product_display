@@ -91,7 +91,10 @@
     </div>
 
     <div class="w-100 d-flex justify-content-center">
-      <button type="submit" class="btn btn-primary px-4">Submit</button>
+      @can('user_create')
+        <button type="submit" class="btn btn-primary px-4">Submit</button>
+      @endcan
+
     </div>
 
   </form>

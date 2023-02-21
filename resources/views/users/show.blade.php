@@ -21,9 +21,13 @@
     </div>
 
     <div class="text-end me-3">
+
+      @can('user_edit')
       <a href="{{ route('users.edit', ['user' => $user->id]) }}">
           <h5 class="m-0 green-text text-accent-4"><i class="bi bi-pencil-square"></i></h5>
       </a>
+      @endcan
+
     </div>
   </div>
   {{-- End Header --}}

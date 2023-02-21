@@ -68,8 +68,12 @@
 
           <div class="w-100 d-flex justify-content-end">
             <button type="button" class="btn btn-secondary"  data-bs-dismiss="modal" aria-label="Close">Cancel</button>
-            <div class="mx-2"></div>
-            <button type="submit" class="btn btn-outline-danger">Confirm</button>
+
+            @can('role_create')
+              <div class="mx-2"></div>
+              <button type="submit" class="btn btn-outline-danger">Confirm</button>
+            @endcan
+
           </div>
 
         </form>
@@ -92,10 +96,15 @@
       <div class="dropdown pe-3">
         <h6 class="transparent" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi bi-three-dots-vertical"></i></h6>
         <ul class="dropdown-menu">
-          <li><a class="dropdown-item" href="{{ route('roles.show',$role->id) }}">Detail</a></li>
+
+          @can('role_view')
+            <li><a class="dropdown-item" href="{{ route('roles.show',$role->id) }}">Detail</a></li>
+          @endcan
+
           @can('role_edit')
             <li><a class="dropdown-item" href="{{ route('roles.edit',$role->id) }}">Update</a></li>
           @endcan
+
           {{-- @can('role_delete')
           <li><a class="dropdown-item text-danger" href="#" data-bs-toggle="modal" data-bs-target="#DeleteModal">Delete</a></li>
           @endcan --}}
