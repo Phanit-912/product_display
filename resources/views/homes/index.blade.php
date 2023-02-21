@@ -111,16 +111,36 @@
         <h5 class="text-danger">ONE DISPLAY</h5>
 
         <p class="py-2 border-bottom text-success">Category</p>
-        @foreach ($categories as $category)
-            <p class="sidenav-close"><a class="text-dark" href="#{{ $category->category_name }}_{{ $category->id }}">{{ $category->category_name }}</a></p>
+          <a href="{{ route('homes.index') }}">
+            <button type="submit" class="bg-transparent border-0 p-2">
+              <p class="m-0 p-0">All CAtegory</p>  
+            </button>
+          </a>
+        @foreach ($category_menus as $category)
+            <form action="{{ route('category.show', ['category' => $category->id]) }}" method="GET">
+              <button type="submit" class="bg-transparent border-0 p-2 sidenav-close">
+                <p class="m-0 p-0">{{ $category->category_name }}</p>  
+              </button>
+            </form>
         @endforeach
 
         <div class="py-4"></div>
 
         <p class="py-2 border-bottom text-success">Brand</p>
-        @foreach ($brands as $brand)
-            <p>{{ $brand->brand_name }}</p>
-        @endforeach
+
+          <a href="{{ route('homes.index') }}">
+            <button type="submit" class="bg-transparent border-0 p-2 sidenav-close">
+              <p class="m-0 p-0">All Brand</p>  
+            </button>
+          </a>
+
+          @foreach ($brands as $brand)
+              <form action="{{ route('brand.show', ['brand' => $brand->id]) }}" method="GET">
+                <button type="submit" class="bg-transparent border-0 p-2 sidenav-close">
+                  <p class="m-0 p-0">{{ $brand->brand_name }}</p>  
+                </button>
+              </form>
+          @endforeach
       </div>
 
     </div>
@@ -142,58 +162,68 @@
     {{-- Product View --}}
     <div class="w-100 d-flex justify-content-center flex-wrap align-content-start p-3" id="viewEvent">
 
+      @if (count($categories) > 0)
+      
       @foreach ($categories as $key => $category)
-      <div class="pt-4"  id="{{ $category->category_name }}_{{ $category->id }}"></div>
-        <div class="w-100 bg-white p-3 rounded border-bottom border-danger shadow">
-          <p class="m-0 p-0">{{ $category->category_name }}</p>
-        </div>
+        <div class="pt-4"  id="{{ $category->category_name }}_{{ $category->id }}"></div>
+          <div class="w-100 bg-white p-3 rounded border-bottom border-danger shadow">
+            <p class="m-0 p-0">{{ $category->category_name }}</p>
+          </div>
 
-        @foreach ($products as $product)
+          @foreach ($products as $product)
 
-          @if ($category->id == $product->product_category_id)
-          
-            {{-- Modal Product Detail --}}
-              <div id="modalProduct_Grid{{ $product->id }}" class="modal modalProduct">
-                <div class="modal-content">
-                  
-                  <div class="w-100 d-flex justify-content-center">
-                    <img @if ($product['product_image'] != null)
+            @if ($category->id == $product->product_category_id)
+            
+              {{-- Modal Product Detail --}}
+                <div id="modalProduct_Grid{{ $product->id }}" class="modal modalProduct">
+                  <div class="modal-content">
+                    
+                    <div class="w-100 d-flex justify-content-center">
+                      <img @if ($product['product_image'] != null)
+                          src="{{ url( '/storage/' . $product['product_image']) }}"
+                        @else
+                          src="{{ url('image/no_image.jpg') }}"
+                        @endif 
+                        alt="image" class="rounded" style="width: 18em; height: 18em; object-fit: cover;">  
+                    </div>
+
+                    <p>{{ $product->product_name }}</p>
+                    <p>{{ $product->product_general_price }}</p>
+                    <p>{{ $product->product_wholesale_price }}</p>
+                    <p>{{ $product->product_special_price }}</p>
+                    <p>{{ $product->product_description }}</p>
+                  </div>
+                </div>
+              {{-- End Modal Product Detail --}}
+
+              <div class="product_card bg-white m-3 rounded-4 shadow modal-trigger" data-target="modalProduct_Grid{{ $product->id }}">
+                <div class="rounded-4 product_image">
+                  <img @if ($product['product_image'] != null)
                         src="{{ url( '/storage/' . $product['product_image']) }}"
                       @else
                         src="{{ url('image/no_image.jpg') }}"
                       @endif 
-                      alt="image" class="rounded" style="width: 18em; height: 18em; object-fit: cover;">  
-                  </div>
-
-                  <p>{{ $product->product_name }}</p>
-                  <p>{{ $product->product_general_price }}</p>
-                  <p>{{ $product->product_wholesale_price }}</p>
-                  <p>{{ $product->product_special_price }}</p>
-                  <p>{{ $product->product_description }}</p>
+                      alt="image" class="w-100 product_image rounded-4">  
+                </div>
+                <div class="product_title">
+                  <p class="m-0 p-0 product_price"><span class="rounded-top px-1 pb-2 bg-white">$ {{ $product->product_general_price }}</span></p>
+                  <p class="m-0 p-2 text-secondary">{{ $product->product_name }}</p>
                 </div>
               </div>
-            {{-- End Modal Product Detail --}}
 
-            <div class="product_card bg-white m-3 rounded-4 shadow modal-trigger" data-target="modalProduct_Grid{{ $product->id }}">
-              <div class="rounded-4 product_image">
-                <img @if ($product['product_image'] != null)
-                      src="{{ url( '/storage/' . $product['product_image']) }}"
-                    @else
-                      src="{{ url('image/no_image.jpg') }}"
-                    @endif 
-                    alt="image" class="w-100 product_image rounded-4">  
-              </div>
-              <div class="product_title">
-                <p class="m-0 p-0 product_price"><span class="rounded-top px-1 pb-2 bg-white">$ {{ $product->product_general_price }}</span></p>
-                <p class="m-0 p-2 text-secondary">{{ $product->product_name }}</p>
-              </div>
-            </div>
+            @endif
 
-          @endif
-
+          @endforeach
+        
         @endforeach
+
+      @else
       
-      @endforeach
+        <div class="position-absolute top-50 start-50 translate-middle">
+          <p class="text-danger border border-danger bg-white py-3 px-4 rounded shadow">No Data!</p>
+        </div>
+
+      @endif
 
 
       <script>        

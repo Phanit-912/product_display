@@ -14,6 +14,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\BrandController;
 use App\Http\Controllers\QuoteController;
+use App\Http\Controllers\ProductCategoryFilterCOntroller;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,6 +34,9 @@ Route::get('/admin', function () {
 Auth::routes();
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::resource('homes', HomeController::class);
+Route::resource('brand', HomeController::class);
+Route::resource('category', ProductCategoryFilterCOntroller::class);
 
 Route::group(['middleware' => ['auth']], function() {
   Route::resource('roles', RoleController::class);
