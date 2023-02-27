@@ -32,7 +32,7 @@ Route::get('/admin', function () {
 });
 
 Route::get('/', function () {
-  return view('welcome');
+  return view('homes.index');
 });
 
 Auth::routes();
