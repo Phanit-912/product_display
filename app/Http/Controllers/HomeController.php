@@ -36,7 +36,11 @@ class HomeController extends Controller
       ->get();
       $category_menus = Category::orderBy('id', 'asc')->get();
       
-      $products = Product::orderByDesc('id')->get();
+      $products = Product::orderByDesc('id')
+      ->leftJoin('categories', 'products.product_category_id', '=', 'categories.id')
+      ->leftJoin('brands', 'products.product_brand_id', '=', 'brands.id')
+      ->select('products.*', 'categories.category_name', 'brands.brand_name')
+      ->get();
   
         return view('homes.index', [
           'brands' => $brands,
@@ -58,7 +62,10 @@ class HomeController extends Controller
       $category_menus = Category::orderBy('id', 'asc')->get();
 
       $products = Product::orderByDesc('id')
-      ->where('product_brand_id', '=', $brand)
+      ->leftJoin('categories', 'products.product_category_id', '=', 'categories.id')
+      ->leftJoin('brands', 'products.product_brand_id', '=', 'brands.id')
+      ->select('products.*', 'categories.category_name', 'brands.brand_name')
+      ->where('products.product_brand_id', '=', $brand)
       ->get();
   
         return view('homes.index', [

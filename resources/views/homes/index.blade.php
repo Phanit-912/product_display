@@ -60,7 +60,7 @@
 
       /* Chrome, Edge, and Safari */
       *::-webkit-scrollbar {
-        width: 6px;
+        width: 4px;
       }
 
       *::-webkit-scrollbar-track {
@@ -94,8 +94,18 @@
      <!-- Modal Structure -->
       <div id="modalProduct_Cart" class="modal modalCart">
         <div class="modal-content">
-          <h4>Modal Header</h4>
-          <p>A bunch of text</p>
+
+          <script>
+            
+          </script>
+          
+          <script>
+            for(let key of Object.keys(localStorage)){
+                if(localStorage[key].hasOwnProperty('special_price')){
+                    console.log(localStorage[key]['special_price']);
+                }
+            }
+          </script>
         </div>
         <div class="modal-footer">
           <a href="#" class="modal-close waves-effect waves-green btn-flat">Agree</a>
@@ -157,7 +167,7 @@
     </script>
     {{-- End Side Nav --}}
     {{-- End Navigation Bar View --}}
-    
+
 
     {{-- Product View --}}
     <div class="w-100 d-flex justify-content-center flex-wrap align-content-start p-3" id="viewEvent">
@@ -175,8 +185,8 @@
             @if ($category->id == $product->product_category_id)
             
               {{-- Modal Product Detail --}}
-                <div id="modalProduct_Grid{{ $product->id }}" class="modal modalProduct">
-                  <div class="modal-content">
+                <div id="modalProduct_Grid{{ $product->id }}" class="modal modal-fixed-footer modalProduct">
+                  <div class="modal-content bg-transparent">
                     
                     <div class="w-100 d-flex justify-content-center">
                       <img @if ($product['product_image'] != null)
@@ -187,14 +197,100 @@
                         alt="image" class="rounded" style="width: 18em; height: 18em; object-fit: cover;">  
                     </div>
 
-                    <p>{{ $product->product_name }}</p>
-                    <p>{{ $product->product_general_price }}</p>
-                    <p>{{ $product->product_wholesale_price }}</p>
-                    <p>{{ $product->product_special_price }}</p>
-                    <p>{{ $product->product_description }}</p>
+                    <div class="w-100 mt-4">
+                      <p class="m-0 p-0 text-secondary">Name:</p>
+                      <p>{{ $product->product_name }}</p>
+                    </div>
+
+                    <div class="w-100 d-flex justify-content-between">
+
+                      <div class="w-100">
+                        <p class="m-0 p-0 text-secondary">Price:</p>
+                        <p>{{ $product->product_general_price }}</p>
+                      </div>
+
+                      <div class="w-100">
+                        <p class="m-0 p-0 text-secondary">Wholsale:</p>
+                        <p>{{ $product->product_wholesale_price }}</p>
+                      </div>
+
+                      <div class="w-100">
+                        <p class="m-0 p-0 text-secondary">Special:</p>
+                        <p>{{ $product->product_special_price }}</p>
+                      </div>
+
+                    </div>
+
+                    <div class="w-100 d-flex justify-content-between">
+
+                      <div class="w-100">
+                        <p class="m-0 p-0 text-secondary">Category:</p>
+                        <p>{{ $product->category_name }}</p>
+                      </div>
+
+                      <div class="w-100">
+                        <p class="m-0 p-0 text-secondary">Brand:</p>
+                        <p>{{ $product->brand_name }}</p>
+                      </div>
+
+                    </div>
+
+                    <div class="w-100">
+                      <p class="m-0 p-0 text-secondary">Decsription:</p>
+                      <p>{{ $product->product_description }}</p>
+                    </div>
+
                   </div>
+                  <div class="modal-footer">
+                    <a href="#" class="modal-close waves-effect waves-red btn-flat border border-danger text-danger me-2">Close</a>
+                    <a href="#" class="modal-close waves-effect waves-green btn-flat border border-success text-success ms-2" onclick="dataList{{ $product->id }}()">Select</a>
+                  </div>
+
+                      {{-- local data --}}
+                        <script>
+                          function dataList{{ $product->id }}() {
+
+                            var data = JSON.parse(localStorage["datas{{ $product->id }}"]);
+                            var val = data.product_qty;
+
+                            // Store temporary item
+                            if (val == null) {
+                              var datas{{ $product->id }} = {
+                                product_id:"{{ $product->id }}",
+                                product_name:"{{ $product->product_name }}",
+                                product_qty:"1",
+                                general_price:"{{ $product->product_wholesale_price }}",
+                                wholesale_price:"{{ $product->product_wholesale_price }}",
+                                special_price:"{{ $product->product_special_price }}",
+                                description:"{{ $product->product_description }}",
+                              };
+                            } else {
+
+                              // Retrieve
+                              var S_datas = JSON.parse(localStorage["datas{{ $product->id }}"]);
+                              var qty = S_datas.product_qty + 1;
+
+                              var datas{{ $product->id }} = {
+                                product_id:"{{ $product->id }}",
+                                product_name:"{{ $product->product_name }}",
+                                product_qty: qty,
+                                general_price:"{{ $product->product_wholesale_price }}",
+                                wholesale_price:"{{ $product->product_wholesale_price }}",
+                                special_price:"{{ $product->product_special_price }}",
+                                description:"{{ $product->product_description }}",
+                              };
+                            }
+
+                            localStorage["datas{{ $product->id }}"] = JSON.stringify(datas{{ $product->id }});
+
+                            alert(stored_datas.product_qty);
+                          }
+                        </script>
+                      {{-- end local data --}}
+                      
                 </div>
               {{-- End Modal Product Detail --}}
+
 
               <div class="product_card bg-white m-3 rounded-4 shadow modal-trigger" data-target="modalProduct_Grid{{ $product->id }}">
                 <div class="rounded-4 product_image">
