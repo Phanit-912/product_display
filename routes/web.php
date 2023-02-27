@@ -31,13 +31,13 @@ Route::get('/admin', function () {
   return view('auth.login');
 });
 
-Route::get('/', function () {
-  return view('homes.index');
-});
+// Route::get('/', function () {
+//   return view('welcome');
+// });
 
 Auth::routes();
 
-// Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::resource('homes', HomeController::class);
 Route::resource('brand', HomeController::class);
 Route::resource('category', ProductCategoryFilterCOntroller::class);
