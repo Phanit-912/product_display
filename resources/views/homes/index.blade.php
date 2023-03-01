@@ -134,6 +134,8 @@
             </form>
         @endforeach
 
+        {{-- <a href="/send">Send Message</a> --}}
+
         <div class="py-4"></div>
 
         <p class="py-2 border-bottom text-success">Brand</p>
@@ -240,10 +242,12 @@
                       <p>{{ $product->product_description }}</p>
                     </div>
 
+                    <input type="text" name="name" value="{{ $product->product_name }}">
+
                   </div>
                   <div class="modal-footer">
                     <a href="#" class="modal-close waves-effect waves-red btn-flat border border-danger text-danger me-2">Close</a>
-                    <a href="#" class="modal-close waves-effect waves-green btn-flat border border-success text-success ms-2" onclick="dataList{{ $product->id }}()">Select</a>
+                    <a href="/send" class="modal-close waves-effect waves-green btn-flat border border-success text-success ms-2" onclick="dataList{{ $product->id }}()">Select</a>
                   </div>
 
                       {{-- local data --}}

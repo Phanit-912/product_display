@@ -1,11 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 
 use App\Http\Controllers\HomeController;
-use App\Models\Brand;
-use App\Models\Category;
-use App\Models\Product;
 
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
@@ -41,6 +39,8 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::resource('homes', HomeController::class);
 Route::resource('brand', HomeController::class);
 Route::resource('category', ProductCategoryFilterCOntroller::class);
+
+Route::get('/send', 'App\Http\Controllers\HomeController@sendData');
 
 Route::group(['middleware' => ['auth']], function() {
   Route::resource('roles', RoleController::class);

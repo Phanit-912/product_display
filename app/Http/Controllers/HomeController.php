@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use App\Http\Controllers\TelegramController;
+
 use App\Models\Brand;
 use App\Models\Category;
 use App\Models\Product;
@@ -19,6 +21,7 @@ class HomeController extends Controller
     // {
     //     $this->middleware('auth');
     // }
+    
 
     /**
      * Show the application dashboard.
@@ -52,6 +55,7 @@ class HomeController extends Controller
 
     public function show($brand)
     {
+
       $brands = Brand::orderBy('brand_code', 'asc')->get();
       
       $category_product = Category::join('products', 'categories.id', '=', 'products.product_category_id')
@@ -74,5 +78,25 @@ class HomeController extends Controller
           'category_menus' => $category_menus,
           'products' => $products,
         ]);
+    }
+
+    public function sendData(Request $request) {
+      $message = new TelegramController;
+
+      $data = $request->input('name');
+
+      try{
+        
+          $data = 'Hello telegram';
+          $message->send( $data . ' test data from product display');
+
+      } catch( \Exception $e){
+
+          $message->send( 'There is an error while update data from API ' . $e->getMessage() );
+          return false;
+      }
+
+      return redirect()->back();
+
     }
 }
