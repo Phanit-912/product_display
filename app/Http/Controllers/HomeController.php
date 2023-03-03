@@ -80,15 +80,18 @@ class HomeController extends Controller
         ]);
     }
 
-    public function sendData(Request $request) {
+    public function store(Request $request) {
       $message = new TelegramController;
 
-      $data = $request->input('name');
+      $product_name = request('product_name');
+      $product_general_price = request()->input('product_general_price');
+      $product_wholesale_price = request()->input('product_wholesale_price');
+      $product_special_price = request()->input('product_special_price');
 
       try{
         
-          $data = 'Hello telegram';
-          $message->send( $data . ' test data from product display');
+          $data = 'Hello telegram' . $product_name;
+          $message->send( $data . ' test data from product display'. $product_name);
 
       } catch( \Exception $e){
 
