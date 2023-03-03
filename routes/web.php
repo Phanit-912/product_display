@@ -11,8 +11,12 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\BrandController;
-use App\Http\Controllers\QuoteController;
 use App\Http\Controllers\ProductCategoryFilterCOntroller;
+
+use App\Http\Controllers\QuoteController;
+use App\Http\Controllers\QuoteProductController;
+
+use App\Http\Controllers\SendMessageController;
 
 /*
 |--------------------------------------------------------------------------
@@ -40,7 +44,12 @@ Route::resource('homes', HomeController::class);
 Route::resource('brand', HomeController::class);
 Route::resource('category', ProductCategoryFilterCOntroller::class);
 
-Route::get('/send', 'App\Http\Controllers\HomeController@sendData');
+// Route::get('/send', [HomeController::class, 'store'])->name('home');
+// Route::get('/send', 'App\Http\Controllers\HomeController@edit');
+
+Route::resource('sendmessages', SendMessageController::class);
+
+Route::resource('quoteproducts', QuoteProductController::class);
 
 Route::group(['middleware' => ['auth']], function() {
   Route::resource('roles', RoleController::class);
