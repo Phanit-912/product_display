@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>{{ config('app.name') }} {{ Illuminate\Foundation\Application::VERSION }} (PHP v{{ PHP_VERSION }}</title>
+    <title>{{ config('app.name') }} {{ Illuminate\Foundation\Application::VERSION }} (PHP v{{ PHP_VERSION }})</title>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -26,6 +26,9 @@
 
     <!-- Compiled and minified JavaScript -->
     <script src="{{ url('materialize/js/materialize.min.js') }}"></script>    
+
+    {{-- AJAX for fetch data --}}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     
 
     <style>
@@ -95,20 +98,15 @@
       <div id="modalProduct_Cart" class="modal modalCart">
         <div class="modal-content">
 
-          <script>
-            
-          </script>
+          <form action="{{ route('sendmessages.show', ['sendmessage' => 'senditems']) }}">
+            <input type="hidden" name="product_name" value="New Product">
+            <input type="hidden" name="product_general_price" value="100.00">
+            <input type="hidden" name="product_wholesale_price" value="80.00">
+            <input type="hidden" name="product_special_price" value="90.00">
+
+            <button class="btn" type="submit">Confirm</button>
           
-          <script>
-            for(let key of Object.keys(localStorage)){
-                if(localStorage[key].hasOwnProperty('special_price')){
-                    console.log(localStorage[key]['special_price']);
-                }
-            }
-          </script>
-        </div>
-        <div class="modal-footer">
-          <a href="#" class="modal-close waves-effect waves-green btn-flat">Agree</a>
+        </form>
         </div>
       </div>
      <!-- End Modal Structure -->
@@ -196,7 +194,7 @@
                         @else
                           src="{{ url('image/no_image.jpg') }}"
                         @endif 
-                        alt="image" class="rounded" style="width: 18em; height: 18em; object-fit: cover;">  
+                        alt="image" class="materialboxed" width="270" style="object-fit: cover;">  
                     </div>
 
                     <div class="w-100 mt-4">
@@ -242,56 +240,22 @@
                       <p>{{ $product->product_description }}</p>
                     </div>
 
-                    <input type="text" name="name" value="{{ $product->product_name }}">
 
                   </div>
+
                   <div class="modal-footer">
                     <a href="#" class="modal-close waves-effect waves-red btn-flat border border-danger text-danger me-2">Close</a>
-                    <a href="/send" class="modal-close waves-effect waves-green btn-flat border border-success text-success ms-2" onclick="dataList{{ $product->id }}()">Select</a>
+                    <a href="#" class="modal-close waves-effect waves-green btn-flat border border-success text-success ms-2">Select</a>
                   </div>
 
-                      {{-- local data --}}
-                        <script>
-                          function dataList{{ $product->id }}() {
-
-                            var data = JSON.parse(localStorage["datas{{ $product->id }}"]);
-                            var val = data.product_qty;
-
-                            // Store temporary item
-                            if (val == null) {
-                              var datas{{ $product->id }} = {
-                                product_id:"{{ $product->id }}",
-                                product_name:"{{ $product->product_name }}",
-                                product_qty:"1",
-                                general_price:"{{ $product->product_wholesale_price }}",
-                                wholesale_price:"{{ $product->product_wholesale_price }}",
-                                special_price:"{{ $product->product_special_price }}",
-                                description:"{{ $product->product_description }}",
-                              };
-                            } else {
-
-                              // Retrieve
-                              var S_datas = JSON.parse(localStorage["datas{{ $product->id }}"]);
-                              var qty = S_datas.product_qty + 1;
-
-                              var datas{{ $product->id }} = {
-                                product_id:"{{ $product->id }}",
-                                product_name:"{{ $product->product_name }}",
-                                product_qty: qty,
-                                general_price:"{{ $product->product_wholesale_price }}",
-                                wholesale_price:"{{ $product->product_wholesale_price }}",
-                                special_price:"{{ $product->product_special_price }}",
-                                description:"{{ $product->product_description }}",
-                              };
-                            }
-
-                            localStorage["datas{{ $product->id }}"] = JSON.stringify(datas{{ $product->id }});
-
-                            alert(stored_datas.product_qty);
-                          }
-                        </script>
-                      {{-- end local data --}}
-                      
+                  {{-- Acripte for view full image --}}
+                  <script>
+                      document.addEventListener('DOMContentLoaded', function() {
+                        var elems = document.querySelectorAll('.materialboxed');
+                        M.Materialbox.init(elems);
+                      });
+                  </script>
+                  
                 </div>
               {{-- End Modal Product Detail --}}
 
@@ -348,6 +312,49 @@
       </script>
 
     </div>
+
+    <script>
+      $(document).ready(function() {
+         
+          $('#butsave').on('click', function() {
+            var name = $('#name').val();
+            var email = $('#email').val();
+            var phone = $('#phone').val();
+            var city = $('#city').val();
+            var password = $('#password').val();
+            if(name!="" && email!="" && phone!="" && city!=""){
+              /*  $("#butsave").attr("disabled", "disabled"); */
+                $.ajax({
+                    url: "/userData",
+                    type: "POST",
+                    data: {
+                        _token: $("#csrf").val(),
+                        type: 1,
+                        name: name,
+                        email: email,
+                        phone: phone,
+                        city: city
+                    },
+                    cache: false,
+                    success: function(dataResult){
+                        console.log(dataResult);
+                        var dataResult = JSON.parse(dataResult);
+                        if(dataResult.statusCode==200){
+                          window.location = "/userData";				
+                        }
+                        else if(dataResult.statusCode==201){
+                           alert("Error occured !");
+                        }
+                        
+                    }
+                });
+            }
+            else{
+                alert('Please fill all the field !');
+            }
+        });
+      });
+      </script>
 
   </div>
 
